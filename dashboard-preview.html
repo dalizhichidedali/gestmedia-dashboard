@@ -10,32 +10,23 @@
             --foreground: 222.2 84% 4.9%;
             --card: 0 0% 100%;
             --card-foreground: 222.2 84% 4.9%;
-            --popover: 0 0% 100%;
-            --popover-foreground: 222.2 84% 4.9%;
             --primary: 222.2 47.4% 11.2%;
             --primary-foreground: 210 40% 98%;
             --secondary: 210 40% 96.1%;
-            --secondary-foreground: 222.2 47.4% 11.2%;
             --muted: 210 40% 96.1%;
             --muted-foreground: 215.4 16.3% 46.9%;
-            --accent: 210 40% 96.1%;
-            --accent-foreground: 222.2 47.4% 11.2%;
-            --destructive: 0 84.2% 60.2%;
-            --destructive-foreground: 210 40% 98%;
             --border: 214.3 31.8% 91.4%;
-            --input: 214.3 31.8% 91.4%;
-            --ring: 222.2 84% 4.9%;
-            --radius: 0.5rem;
+            --radius: 0.75rem;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
-            font-family: system-ui, -apple-system, sans-serif;
-            background: hsl(210 40% 98%);
-            color: hsl(var(--foreground));
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
             min-height: 100vh;
-            padding: 2rem;
+            padding: 1rem;
         }
 
         .container { max-width: 1200px; margin: 0 auto; }
@@ -45,33 +36,41 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
-        h1 { font-size: 2rem; font-weight: 700; }
-        .subtitle { color: hsl(var(--muted-foreground)); }
+        h1 { font-size: 1.5rem; font-weight: 700; }
+        .subtitle { color: #64748b; font-size: 0.875rem; }
 
         /* Cards */
         .card {
-            background: hsl(var(--card));
+            background: white;
             border-radius: var(--radius);
-            border: 1px solid hsl(var(--border));
-            padding: 1.5rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+            padding: 1.25rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
         .card-header { margin-bottom: 1rem; }
-        .card-title { font-size: 1.25rem; font-weight: 600; }
-        .card-description { color: hsl(var(--muted-foreground)); font-size: 0.875rem; }
+        .card-title { font-size: 1rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
+        .card-description { color: #64748b; font-size: 0.8rem; }
 
-        /* Grid */
-        .grid { display: grid; gap: 1.5rem; }
-        .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
-        .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+        /* Grid - 自适应 */
+        .grid { display: grid; gap: 1rem; }
+        
+        @media (min-width: 640px) {
+            .sm\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1024px) {
+            .lg\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+            .lg\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+        }
 
         /* Stats */
-        .stat-value { font-size: 2rem; font-weight: 700; }
-        .stat-label { color: hsl(var(--muted-foreground)); font-size: 0.875rem; }
+        .stat-value { font-size: 1.75rem; font-weight: 700; }
+        .stat-label { color: #64748b; font-size: 0.8rem; }
         
         .stat-card { 
             display: flex; 
@@ -82,13 +81,13 @@
         /* Progress */
         .progress {
             height: 0.5rem;
-            background: hsl(var(--secondary));
+            background: #e2e8f0;
             border-radius: 9999px;
             overflow: hidden;
         }
         .progress-bar {
             height: 100%;
-            background: hsl(var(--primary));
+            background: #0f172a;
             border-radius: 9999px;
             transition: width 0.3s ease;
         }
@@ -97,32 +96,29 @@
         .badge {
             display: inline-flex;
             align-items: center;
-            padding: 0.125rem 0.625rem;
+            padding: 0.2rem 0.5rem;
             border-radius: 9999px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 500;
         }
-        .badge-success {
-            background: hsl(142 76% 36% / 0.1);
-            color: hsl(142 76% 36%);
-        }
-        .badge-warning {
-            background: hsl(38 92% 50% / 0.1);
-            color: hsl(38 92% 50%);
-        }
+        .badge-success { background: #dcfce7; color: #166534; }
+        .badge-warning { background: #fef3c7; color: #92400e; }
 
         /* Table */
-        table { width: 100%; border-collapse: collapse; }
+        .table-wrap { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; min-width: 400px; }
         th { 
             text-align: left; 
             padding: 0.75rem;
-            border-bottom: 1px solid hsl(var(--border));
+            border-bottom: 1px solid #e2e8f0;
             font-weight: 600;
-            color: hsl(var(--muted-foreground));
+            color: #64748b;
+            font-size: 0.8rem;
         }
         td { 
             padding: 0.75rem;
-            border-bottom: 1px solid hsl(var(--border));
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.875rem;
         }
 
         /* Button */
@@ -131,42 +127,74 @@
             align-items: center;
             justify-content: center;
             padding: 0.5rem 1rem;
-            border-radius: var(--radius);
+            border-radius: 0.5rem;
             font-weight: 500;
             cursor: pointer;
             border: none;
-            transition: all 0.2s;
+            font-size: 0.875rem;
         }
-        .btn-primary {
-            background: hsl(var(--primary));
-            color: hsl(var(--primary-foreground));
-        }
-        .btn-primary:hover { opacity: 0.9; }
+        .btn-primary { background: #0f172a; color: white; }
 
         /* Tabs */
-        .tabs { border-bottom: 1px solid hsl(var(--border)); margin-bottom: 1rem; }
+        .tabs { 
+            display: flex; 
+            border-bottom: 1px solid #e2e8f0; 
+            margin-bottom: 1rem;
+            overflow-x: auto;
+        }
         .tab {
             padding: 0.75rem 1rem;
             cursor: pointer;
             border-bottom: 2px solid transparent;
-            color: hsl(var(--muted-foreground));
+            color: #64748b;
+            white-space: nowrap;
+            font-size: 0.875rem;
         }
         .tab.active {
-            border-color: hsl(var(--primary));
-            color: hsl(var(--foreground));
+            border-color: #0f172a;
+            color: #0f172a;
+            font-weight: 500;
         }
 
         /* Avatar */
         .avatar {
-            width: 2.5rem;
-            height: 2.5rem;
+            width: 2rem;
+            height: 2rem;
             border-radius: 50%;
-            background: hsl(var(--primary));
-            color: hsl(var(--primary-foreground));
+            background: #0f172a;
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 600;
+            font-size: 0.75rem;
+        }
+
+        /* 财务报表样式 */
+        .finance-card { border-left: 4px solid #0f172a; }
+        .finance-card.income { border-left-color: #22c55e; }
+        .finance-card.expense { border-left-color: #ef4444; }
+        
+        .amount { font-size: 1.5rem; font-weight: 700; }
+        .amount.positive { color: #22c55e; }
+        .amount.negative { color: #ef4444; }
+        
+        .chart-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .chart-label { font-size: 0.8rem; min-width: 80px; }
+        .chart-value { font-size: 0.75rem; color: #64748b; }
+
+        /* Mobile优化 */
+        @media (max-width: 640px) {
+            body { padding: 0.75rem; }
+            h1 { font-size: 1.25rem; }
+            .stat-value { font-size: 1.5rem; }
+            .card { padding: 1rem; }
+            .hide-mobile { display: none; }
         }
     </style>
 </head>
@@ -174,102 +202,100 @@
     <div class="container">
         <header>
             <div>
-                <h1>🎬 G'est Media Dashboard</h1>
-                <p class="subtitle">欢迎回来！今天是 2026年3月15日</p>
+                <h1>🎬 G'est Media</h1>
+                <p class="subtitle">2026年3月15日 星期六</p>
             </div>
-            <button class="btn btn-primary">+ 新建项目</button>
+            <button class="btn btn-primary">+ 新建</button>
         </header>
 
-        <!-- Stats Cards -->
-        <div class="grid grid-cols-3" style="margin-bottom: 1.5rem;">
-            <div class="card stat-card">
-                <span class="stat-label">本月收入</span>
-                <span class="stat-value">$12,450</span>
-                <span class="badge badge-success">↑ 23%</span>
+        <!-- 财务报表 - 移动端优先 -->
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3" style="margin-bottom: 1rem;">
+            <div class="card finance-card income">
+                <div class="card-header">
+                    <div class="card-title">💰 本月收入</div>
+                </div>
+                <div class="amount positive">$12,450</div>
+                <div class="stat-label">↑ 23% vs上月</div>
             </div>
-            <div class="card stat-card">
-                <span class="stat-label">活跃项目</span>
-                <span class="stat-value">8</span>
-                <span class="badge badge-success">↑ 2</span>
+            <div class="card finance-card expense">
+                <div class="card-header">
+                    <div class="card-title">💳 本月支出</div>
+                </div>
+                <div class="amount negative">$820.65</div>
+                <div class="stat-label">日均 $68</div>
             </div>
-            <div class="card stat-card">
-                <span class="stat-label">待处理任务</span>
-                <span class="stat-value">5</span>
-                <span class="badge badge-warning">需关注</span>
+            <div class="card finance-card">
+                <div class="card-header">
+                    <div class="card-title">📈 净利润</div>
+                </div>
+                <div class="amount">$11,629.35</div>
+                <div class="stat-label">利润率 93%</div>
             </div>
         </div>
 
-        <!-- Projects & Activity -->
-        <div class="grid grid-cols-2">
-            <!-- Recent Projects -->
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">📁 最近项目</h3>
-                    <p class="card-description">您最近的项目进度</p>
-                </div>
+        <!-- 支出明细 -->
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-header">
+                <div class="card-title">📊 3月支出明细</div>
+            </div>
+            <div class="chart-bar">
+                <span class="chart-label">🎸 教育</span>
+                <div class="progress" style="flex:1"><div class="progress-bar" style="width: 48%"></div></div>
+                <span class="chart-value">$400</span>
+            </div>
+            <div class="chart-bar">
+                <span class="chart-label">🛒 超市</span>
+                <div class="progress" style="flex:1"><div class="progress-bar" style="width: 23%"></div></div>
+                <span class="chart-value">$189</span>
+            </div>
+            <div class="chart-bar">
+                <span class="chart-label">🍽️ 餐饮</span>
+                <div class="progress" style="flex:1"><div class="progress-bar" style="width: 16%"></div></div>
+                <span class="chart-value">$131</span>
+            </div>
+            <div class="chart-bar">
+                <span class="chart-label">⛽ 交通</span>
+                <div class="progress" style="flex:1"><div class="progress-bar" style="width: 12%"></div></div>
+                <span class="chart-value">$100</span>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab active">📁 项目</div>
+            <div class="tab">👥 团队</div>
+            <div class="tab">📊 财务</div>
+        </div>
+
+        <!-- 项目列表 -->
+        <div class="card">
+            <div class="table-wrap">
                 <table>
                     <thead>
                         <tr>
                             <th>项目</th>
                             <th>状态</th>
-                            <th>进度</th>
+                            <th class="hide-mobile">进度</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>Loop Division 品牌视频</td>
                             <td><span class="badge badge-success">进行中</span></td>
-                            <td>
-                                <div class="progress"><div class="progress-bar" style="width: 75%"></div></div>
-                            </td>
+                            <td class="hide-mobile"><div class="progress"><div class="progress-bar" style="width: 75%"></div></div></td>
                         </tr>
                         <tr>
                             <td>牙科诊所 社媒运营</td>
                             <td><span class="badge badge-success">进行中</span></td>
-                            <td>
-                                <div class="progress"><div class="progress-bar" style="width: 60%"></div></div>
-                            </td>
+                            <td class="hide-mobile"><div class="progress"><div class="progress-bar" style="width: 60%"></div></div></td>
                         </tr>
                         <tr>
                             <td>环保建筑 动画制作</td>
                             <td><span class="badge badge-warning">待审核</span></td>
-                            <td>
-                                <div class="progress"><div class="progress-bar" style="width: 90%"></div></div>
-                            </td>
+                            <td class="hide-mobile"><div class="progress"><div class="progress-bar" style="width: 90%"></div></div></td>
                         </tr>
                     </tbody>
                 </table>
-            </div>
-
-            <!-- Team Activity -->
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">👥 团队动态</h3>
-                    <p class="card-description">Agent团队今日活动</p>
-                </div>
-                <div style="display: flex; flex-direction: column; gap: 1rem;">
-                    <div style="display: flex; align-items: center; gap: 0.75rem;">
-                        <div class="avatar" style="background: #10b981;">墨</div>
-                        <div>
-                            <div style="font-weight: 500;">墨菲</div>
-                            <div style="font-size: 0.875rem; color: hsl(var(--muted-foreground));">完成竞品分析报告</div>
-                        </div>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 0.75rem;">
-                        <div class="avatar" style="background: #3b82f6;">米</div>
-                        <div>
-                            <div style="font-weight: 500;">米兰达</div>
-                            <div style="font-size: 0.875rem; color: hsl(var(--muted-foreground));">产出3个视频创意</div>
-                        </div>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 0.75rem;">
-                        <div class="avatar" style="background: #f59e0b;">阿</div>
-                        <div>
-                            <div style="font-weight: 500;">阿列克谢</div>
-                            <div style="font-size: 0.875rem; color: hsl(var(--muted-foreground));">GEO系统渲染中...</div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
