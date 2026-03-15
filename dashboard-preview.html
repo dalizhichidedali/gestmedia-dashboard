@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G'est Media Dashboard</title>
+    <style>
+        :root {
+            --background: 0 0% 100%;
+            --foreground: 222.2 84% 4.9%;
+            --card: 0 0% 100%;
+            --card-foreground: 222.2 84% 4.9%;
+            --popover: 0 0% 100%;
+            --popover-foreground: 222.2 84% 4.9%;
+            --primary: 222.2 47.4% 11.2%;
+            --primary-foreground: 210 40% 98%;
+            --secondary: 210 40% 96.1%;
+            --secondary-foreground: 222.2 47.4% 11.2%;
+            --muted: 210 40% 96.1%;
+            --muted-foreground: 215.4 16.3% 46.9%;
+            --accent: 210 40% 96.1%;
+            --accent-foreground: 222.2 47.4% 11.2%;
+            --destructive: 0 84.2% 60.2%;
+            --destructive-foreground: 210 40% 98%;
+            --border: 214.3 31.8% 91.4%;
+            --input: 214.3 31.8% 91.4%;
+            --ring: 222.2 84% 4.9%;
+            --radius: 0.5rem;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: hsl(210 40% 98%);
+            color: hsl(var(--foreground));
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        h1 { font-size: 2rem; font-weight: 700; }
+        .subtitle { color: hsl(var(--muted-foreground)); }
+
+        /* Cards */
+        .card {
+            background: hsl(var(--card));
+            border-radius: var(--radius);
+            border: 1px solid hsl(var(--border));
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .card-header { margin-bottom: 1rem; }
+        .card-title { font-size: 1.25rem; font-weight: 600; }
+        .card-description { color: hsl(var(--muted-foreground)); font-size: 0.875rem; }
+
+        /* Grid */
+        .grid { display: grid; gap: 1.5rem; }
+        .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+
+        /* Stats */
+        .stat-value { font-size: 2rem; font-weight: 700; }
+        .stat-label { color: hsl(var(--muted-foreground)); font-size: 0.875rem; }
+        
+        .stat-card { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 0.5rem;
+        }
+
+        /* Progress */
+        .progress {
+            height: 0.5rem;
+            background: hsl(var(--secondary));
+            border-radius: 9999px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background: hsl(var(--primary));
+            border-radius: 9999px;
+            transition: width 0.3s ease;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.125rem 0.625rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .badge-success {
+            background: hsl(142 76% 36% / 0.1);
+            color: hsl(142 76% 36%);
+        }
+        .badge-warning {
+            background: hsl(38 92% 50% / 0.1);
+            color: hsl(38 92% 50%);
+        }
+
+        /* Table */
+        table { width: 100%; border-collapse: collapse; }
+        th { 
+            text-align: left; 
+            padding: 0.75rem;
+            border-bottom: 1px solid hsl(var(--border));
+            font-weight: 600;
+            color: hsl(var(--muted-foreground));
+        }
+        td { 
+            padding: 0.75rem;
+            border-bottom: 1px solid hsl(var(--border));
+        }
+
+        /* Button */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+        }
+        .btn-primary:hover { opacity: 0.9; }
+
+        /* Tabs */
+        .tabs { border-bottom: 1px solid hsl(var(--border)); margin-bottom: 1rem; }
+        .tab {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            color: hsl(var(--muted-foreground));
+        }
+        .tab.active {
+            border-color: hsl(var(--primary));
+            color: hsl(var(--foreground));
+        }
+
+        /* Avatar */
+        .avatar {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>🎬 G'est Media Dashboard</h1>
+                <p class="subtitle">欢迎回来！今天是 2026年3月15日</p>
+            </div>
+            <button class="btn btn-primary">+ 新建项目</button>
+        </header>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-3" style="margin-bottom: 1.5rem;">
+            <div class="card stat-card">
+                <span class="stat-label">本月收入</span>
+                <span class="stat-value">$12,450</span>
+                <span class="badge badge-success">↑ 23%</span>
+            </div>
+            <div class="card stat-card">
+                <span class="stat-label">活跃项目</span>
+                <span class="stat-value">8</span>
+                <span class="badge badge-success">↑ 2</span>
+            </div>
+            <div class="card stat-card">
+                <span class="stat-label">待处理任务</span>
+                <span class="stat-value">5</span>
+                <span class="badge badge-warning">需关注</span>
+            </div>
+        </div>
+
+        <!-- Projects & Activity -->
+        <div class="grid grid-cols-2">
+            <!-- Recent Projects -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">📁 最近项目</h3>
+                    <p class="card-description">您最近的项目进度</p>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>项目</th>
+                            <th>状态</th>
+                            <th>进度</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Loop Division 品牌视频</td>
+                            <td><span class="badge badge-success">进行中</span></td>
+                            <td>
+                                <div class="progress"><div class="progress-bar" style="width: 75%"></div></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>牙科诊所 社媒运营</td>
+                            <td><span class="badge badge-success">进行中</span></td>
+                            <td>
+                                <div class="progress"><div class="progress-bar" style="width: 60%"></div></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>环保建筑 动画制作</td>
+                            <td><span class="badge badge-warning">待审核</span></td>
+                            <td>
+                                <div class="progress"><div class="progress-bar" style="width: 90%"></div></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Team Activity -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">👥 团队动态</h3>
+                    <p class="card-description">Agent团队今日活动</p>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div class="avatar" style="background: #10b981;">墨</div>
+                        <div>
+                            <div style="font-weight: 500;">墨菲</div>
+                            <div style="font-size: 0.875rem; color: hsl(var(--muted-foreground));">完成竞品分析报告</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div class="avatar" style="background: #3b82f6;">米</div>
+                        <div>
+                            <div style="font-weight: 500;">米兰达</div>
+                            <div style="font-size: 0.875rem; color: hsl(var(--muted-foreground));">产出3个视频创意</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div class="avatar" style="background: #f59e0b;">阿</div>
+                        <div>
+                            <div style="font-weight: 500;">阿列克谢</div>
+                            <div style="font-size: 0.875rem; color: hsl(var(--muted-foreground));">GEO系统渲染中...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
